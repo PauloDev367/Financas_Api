@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\V1\BalanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,10 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+});
+
+Route::group(["prefix" => "balances", "middleware" => "auth.jwt"], function () {
+    Route::get("", [BalanceController::class, 'get']);
+    Route::post("income", [BalanceController::class, 'addIncome']);
+    Route::post("expense", [BalanceController::class, 'addExpense']);
 });

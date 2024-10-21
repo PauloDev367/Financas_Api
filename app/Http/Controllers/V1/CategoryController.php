@@ -32,5 +32,9 @@ class CategoryController extends Controller
         $data = $this->iCategoryService->getAllFromUser($user, CategoryTypes::INCOME);
         return response()->json(['success' => $data]);
     }
-    public function getExpense() {}
+    public function getExpense() {
+        $user = auth()->user();
+        $data = $this->iCategoryService->getAllFromUser($user, CategoryTypes::EXPENSE);
+        return response()->json(['success' => $data]);
+    }
 }

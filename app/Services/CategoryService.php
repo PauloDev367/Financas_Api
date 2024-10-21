@@ -8,6 +8,7 @@ use App\Models\Enums\CategoryTypes;
 use App\Services\Ports\ICategoryService;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Repositories\Ports\ICategoryRepository;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class CategoryService implements ICategoryService
 {
@@ -31,5 +32,13 @@ class CategoryService implements ICategoryService
     {
         $data = $this->iCategoryRepository->getAllFromUser($user->balance->id, $type);
         return $data;
+    }
+    public function delete(int $categoryId, User $user)
+    {
+        $category = $this->iCategoryRepository->getOneById($categoryId, $user->balance->id);
+        if ($category == null) {
+            throw new NotFoundResourceException("Category not founded");
+        }
+        $category->delete();
     }
 }

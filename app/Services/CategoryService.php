@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Enums\CategoryTypes;
 use App\Services\Ports\ICategoryService;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Repositories\Ports\ICategoryRepository;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
@@ -40,5 +41,19 @@ class CategoryService implements ICategoryService
             throw new NotFoundResourceException("Category not founded");
         }
         $category->delete();
+    }
+    public function update(int $categoryId, User $user, UpdateCategoryRequest $request)
+    {
+        $category = $this->iCategoryRepository->getOneById($categoryId, $user->balance->id);
+        if ($category == null) {
+            throw new NotFoundResourceException("Category not founded");
+        }
+        $category->name = !is_null($request->name) ? $request->name : $category->name;
+        $category->icon = !is_null($request->icon) ? $request->icon : $category->icon;
+        $category->icon_color = !is_null($request->icon_color) ? $request->icon_color : $category->icon_color;
+        $category->icon_bg_color = !is_null($request->icon_bg_color) ? $request->icon_bg_color : $category->icon_bg_color;
+
+        $update = $this->iCategoryRepository->update($category);
+        return $update;
     }
 }

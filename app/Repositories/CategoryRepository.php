@@ -24,6 +24,10 @@ class CategoryRepository implements ICategoryRepository
     public function getOneById(int $categoryId, int $balanceId)
     {
         return Category::where("id", $categoryId)
-            ->where("balance_id", $balanceId);
+            ->where("balance_id", $balanceId)->first();
+    }
+    public function update(Category $category){
+        $category->save();
+        return $category;
     }
 }

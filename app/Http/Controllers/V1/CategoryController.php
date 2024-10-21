@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Enums\CategoryTypes;
 use App\Services\Ports\ICategoryService;
 use Illuminate\Http\Request;
@@ -43,5 +44,11 @@ class CategoryController extends Controller
         $user = auth()->user();
         $this->iCategoryService->delete($id, $user);
         return response()->json(['success' => 'Category deleted successfully']);
+    }
+    public function update(int $id, UpdateCategoryRequest $request)
+    {
+        $user = auth()->user();
+        $update = $this->iCategoryService->update($id, $user, $request);
+        return response()->json(['success' => $update]);
     }
 }

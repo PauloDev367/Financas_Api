@@ -43,4 +43,5 @@ Route::group(["prefix" => "categories", "middleware" => "auth.jwt"], function ()
     Route::post("income", [CategoryController::class, 'createIncomeCategory']);
     Route::post("expense", [CategoryController::class, 'createExpenseCategory']);
     Route::delete("{id}", [CategoryController::class, 'delete']);
+    Route::put("{id}", [CategoryController::class, 'update']);
 });

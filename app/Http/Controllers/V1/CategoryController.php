@@ -21,7 +21,12 @@ class CategoryController extends Controller
         $created = $this->iCategoryService->create($request, $user, CategoryTypes::INCOME);
         return response()->json(['success' => $created]);
     }
-    public function createExpenseCategory() {}
+    public function createExpenseCategory(CreateCategoryRequest $request)
+    {
+        $user = auth()->user();
+        $created = $this->iCategoryService->create($request, $user, CategoryTypes::EXPENSE);
+        return response()->json(['success' => $created]);
+    }
     public function getIncome() {}
     public function getExpense() {}
 }

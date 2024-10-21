@@ -38,8 +38,8 @@ Route::group(["prefix" => "balances", "middleware" => "auth.jwt"], function () {
 });
 
 Route::group(["prefix" => "categories", "middleware" => "auth.jwt"], function () {
-    Route::get("income", [BalanceController::class, 'getIncome']);
-    Route::get("expense", [BalanceController::class, 'getExpense']);
+    Route::get("income", [CategoryController::class, 'getIncome']);
+    Route::get("expense", [CategoryController::class, 'getExpense']);
     Route::post("income", [CategoryController::class, 'createIncomeCategory']);
     Route::post("expense", [CategoryController::class, 'createExpenseCategory']);
 });

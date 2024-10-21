@@ -27,4 +27,9 @@ class CategoryService implements ICategoryService
         $saved = $this->iCategoryRepository->save($category);
         return $saved;
     }
+    public function getAllFromUser(User $user, CategoryTypes $type)
+    {
+        $data = $this->iCategoryRepository->getAllFromUser($user->balance->id, $type);
+        return $data;
+    }
 }

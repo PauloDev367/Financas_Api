@@ -14,7 +14,6 @@ class CategoryController extends Controller
         private readonly ICategoryService $iCategoryService,
     ) {}
 
-
     public function createIncomeCategory(CreateCategoryRequest $request)
     {
         $user = auth()->user();
@@ -27,6 +26,11 @@ class CategoryController extends Controller
         $created = $this->iCategoryService->create($request, $user, CategoryTypes::EXPENSE);
         return response()->json(['success' => $created]);
     }
-    public function getIncome() {}
+    public function getIncome()
+    {
+        $user = auth()->user();
+        $data = $this->iCategoryService->getAllFromUser($user, CategoryTypes::INCOME);
+        return response()->json(['success' => $data]);
+    }
     public function getExpense() {}
 }

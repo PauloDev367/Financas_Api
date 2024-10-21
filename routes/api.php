@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\V1\BalanceController;
+use App\Http\Controllers\V1\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,11 @@ Route::group(["prefix" => "balances", "middleware" => "auth.jwt"], function () {
     Route::get("", [BalanceController::class, 'get']);
     Route::post("income", [BalanceController::class, 'addIncome']);
     Route::post("expense", [BalanceController::class, 'addExpense']);
+});
+
+Route::group(["prefix" => "categories", "middleware" => "auth.jwt"], function () {
+    Route::get("income", [BalanceController::class, 'getIncome']);
+    Route::get("expense", [BalanceController::class, 'getExpense']);
+    Route::post("income", [CategoryController::class, 'createIncomeCategory']);
+    Route::post("expense", [CategoryController::class, 'createExpenseCategory']);
 });
